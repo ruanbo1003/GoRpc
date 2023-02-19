@@ -1,0 +1,29 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "/";
+
+service StreamService {
+  // server-side stream RPC
+  rpc List(StreamInfoRequest) returns (stream StreamInfoResponse) {};
+
+  // client-side stream RPC
+  rpc Record(stream StreamInfoRequest) returns (StreamInfoResponse) {};
+
+  // both-side stream RPC
+  rpc Route(stream StreamInfoRequest) returns (stream StreamInfoResponse) {};
+}
+
+message StreamInfoItem {
+  string name = 1;
+  int32 value = 2;
+}
+
+message StreamInfoRequest {
+  StreamInfoItem item = 1;
+}
+
+message StreamInfoResponse {
+  StreamInfoItem item = 1;
+}
